@@ -14,7 +14,7 @@ $ npm install rest-auth
 var auth = require('rest-auth');
 
 // Tell the auth module how to authenticate a user
-auth.authenticate(function(username, password, callback) {
+auth.authenticateUser(function(username, password, callback) {
 	User.findOne({ username: username }, function(err, user) {
 		if (err) {
 			return callback(err);
@@ -39,9 +39,19 @@ app.configure(function() {
 	app.set('views', consts.VIEW_PATH);
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-
+	
+	// rest-auth requires the cookie parser
+	app.use(express.cookieParser());
+	
 	// Load the authentication middleware
-	app.use(auth.authenticate({ authRoute: 'auth-token' });
+	app.use(auth.authenticate({
+		expires: '2 hours',
+		authRoute: 'auth-token',
+		authTokenHash: {
+			algorithm: 'sha256',
+			salt: 'saltiness'
+		}
+	});
 	
 	// This is optional; This will lookup the user's info and
 	// auto-populate the req.user property. If this is not provided,
@@ -78,7 +88,7 @@ Will result in something like this (assuming the credentials are correct):
 
 ```json
 {
-	"authToken": "7bd0fc64-8734-430e-baee-54232e9fb1b6"
+	"authToken": "username:1341191721405:2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae"
 }
 ```
 
@@ -86,7 +96,41 @@ Or something like this in the event of an error:
 
 ```json
 {
-	"error": "User does not exist"
+	"error": {
+		"message": "User does not exist"
+	}
 }
 ```
+
+### More Control
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

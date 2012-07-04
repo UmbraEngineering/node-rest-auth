@@ -1,0 +1,28 @@
+{
+  "name": "rest-auth",
+  "version": "0.0.0",
+  "description": "A RESTful authentication middleware for Express",
+  "main": "lib/index.js",
+  "dependencies": {
+    "sechash": "~0.2.1",
+    "merge-recursive": "0.0.0",
+    "expires": "0.0.0",
+    "json-output": "0.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/UmbraEngineering/node-rest-auth"
+  },
+  "keywords": [
+    "express",
+    "middleware",
+    "auth",
+    "rest"
+  ],
+  "author": "James Brumond",
+  "license": "MIT"
+}
